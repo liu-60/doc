@@ -15,7 +15,7 @@
 :after //插入后
 ```
 
-2、清除浮动
+2、清除浮动 _([为什么清除浮动](https://www.cnblogs.com/zhongweizhu/p/6003537.html))_
 * 额外标签 设置`clear:both` (无意义标签)
 * 父元素使用 `overflow:hidden`（无法展示要溢出元素）
 * `after`伪元素清除浮动 
@@ -31,6 +31,8 @@
   ```
 
   clear：both：本质就是闭合浮动， 就是让父盒子闭合出口和入口，不让子盒子出来
+
+[元素水平垂直居中](http://yanhaijing.com/vertical-center/)
 
 品字布局
   ```css
