@@ -34,3 +34,6 @@ diff算法 和 虚拟dom
 Hash `/#/` 后面的哈希值发生变化，通过 `hashchange` 监听，服务端接收到的 `url` 永远没有变
 `history` 是 `html5` 的新功能
 `history.pushState` 和 `history.replaceState` 不会刷新，只会更新历史记录
+
+
+`React` 打包出来的文件

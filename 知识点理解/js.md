@@ -30,7 +30,86 @@ jQuery.extend(settings, options);
 // 类似 Object.assign
 ```
 
-* mixin(混合)
+* Mixin(混合)
+  Mixin模式的实现其实就是一种属性复制
 ```js
+// 零件仓库1
+function Moveable() {}
+Moveable.prototype.walk = function(name = '') {
+    console.log(`${name} ` + 'walked slowly');
+}
+Moveable.prototype.run = function() {
+    console.log('ran quickly');
+}
+Moveable.prototype.jump = function() {
+    // ...
+}
+// 零件仓库2
+function Souled() {}
+Souled.prototype.smile = function(age) {
+    console.log('smiled as ' + age + ' year\'s old kid');
+}
+// 零件仓库3
+```
+```js
+// mixin 主要实现拎出来看
+function augment(sub, sup) {
+    // 继承所有属性
+    if (arguments.length === 2) {
+        for(var attr in sup.prototype) {
+            sub.prototype[attr] = sup.prototype[attr];
+        }
+    }
+    // 继承部分属性
+    else if(arguments.length > 2) {
+        for (var i = 2; i < arguments.length; i++) {
+            sub.prototype[arguments[i]] = sup.prototype[arguments[i]];
+        }
+    }
+    else {
+        // do nothing
+    }
+}
 
+// 需要增强的类
+function Robot(name) {
+    this.name = name;
+}
+
+// 增强
+augment(Robot, Moveable, 'walk', 'run');    // 从Moveable继承walk和run
+augment(Robot, Souled);                     // 继承Souled的全部属性
+
+// test
+var robot = new Robot('little boy');
+robot.walk(robot.name);       // walked slowly
+robot.run();        // ran quickly
+robot.smile(12);    // smiled as 12 year's old kid
+```
+
+3、`apply` `call` `bind`
+解决继承和 `this` 指向的问题
+apply只接受两个参数，`([thisObj],[,argArray])`
+`call` 接受多个参数
+第一个参数为`obj`，之后产生是调用的
+```js
+//常见案例
+Math.min.call(this,2,3,1)//1
+Math.min.apply(this,[2,3,1])//1
+```
+```js
+//call解决 this 指向
+window.color = 'red';
+document.color = 'yellow';
+
+var s1 = {color: 'blue' };
+function changeColor(){
+    console.log(this.color);
+}
+
+changeColor.call();         //red (默认传递参数)
+changeColor.call(window);   //red
+changeColor.call(document); //yellow
+changeColor.call(this);     //red
+changeColor.call(s1); 
 ```

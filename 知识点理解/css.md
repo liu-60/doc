@@ -18,7 +18,7 @@
 2、清除浮动 _([为什么清除浮动](https://www.cnblogs.com/zhongweizhu/p/6003537.html))_
 * 额外标签 设置`clear:both` (无意义标签)
 * 父元素使用 `overflow:hidden`（无法展示要溢出元素）
-* `after`伪元素清除浮动 
+* `after`伪元素清除浮动
   ```css
     .clearfix:after{/*伪元素是行内元素 正常浏览器清除浮动方法*/
         content: "";
