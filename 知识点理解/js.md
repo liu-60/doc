@@ -113,3 +113,16 @@ changeColor.call(document); //yellow
 changeColor.call(this);     //red
 changeColor.call(s1); 
 ```
+
+模块化
+我们在浏览器中使用 `ES6` 的模块化支持，在 `Node` 中使用 `commonjs` 的模块化支持。
+分类:
+`es6`: `import` / `export`
+`commonjs`: `require` / `module.exports` / `exports`
+`amd`: `require` / `defined`
+
+`require` 与 `import` 的区别
+
+`require`支持动态导入，`import`不支持，正在提案 (babel 下可支持)
+`require` 是同步导入，`import` 属于异步导入
+`require`是值拷贝，导出值变化不会影响导入值；`import`指向内存地址，导入值会随导出值而变化
