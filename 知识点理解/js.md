@@ -126,3 +126,74 @@ changeColor.call(s1);
 `require`支持动态导入，`import`不支持，正在提案 (babel 下可支持)
 `require` 是同步导入，`import` 属于异步导入
 `require`是值拷贝，导出值变化不会影响导入值；`import`指向内存地址，导入值会随导出值而变化
+
+作用域和闭包
+```js
+function foo() {
+  var x = 1;
+  console.log(x); // 1
+  if(x) {
+    (function(x) {
+      console.log(x); // 1
+      var x = 2;
+      console.log(x); // 2
+    })(x)
+  }
+  console.log(x); // 1
+}
+foo();
+
+function A() {
+  var a = 1;
+  function B() {
+    console.log(a);
+  }
+  return B();
+}
+```
+
+防抖和节流
+```js
+//防抖
+function debounce(fn, wait, immediate) {
+    let timer = null
+
+    return function() {
+        let args = arguments
+        let context = this
+
+        if (immediate && !timer) {
+            fn.apply(context, args)
+        }
+
+        if (timer) clearTimeout(timer)
+        timer = setTimeout(() => {
+            fn.apply(context, args)
+        }, wait)
+    }
+}
+```
+```js
+//节流
+function throttle(fn, wait, immediate) {
+    let timer = null
+    let callNow = immediate
+    
+    return function() {
+        let context = this,
+            args = arguments
+
+        if (callNow) {
+            fn.apply(context, args)
+            callNow = false
+        }
+
+        if (!timer) {
+            timer = setTimeout(() => {
+                fn.apply(context, args)
+                timer = null
+            }, wait)
+        }
+    }
+}
+```
