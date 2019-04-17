@@ -197,3 +197,27 @@ function throttle(fn, wait, immediate) {
     }
 }
 ```
+
+new的过程
+```js
+function Person(){
+    this.name=1234;
+    // return {};
+    }
+Person.prototype.getname=function(){
+    console.log(this.name);
+}
+function CreateObj(){
+    var fn = [].shift.call(arguments);
+    var args = arguments;
+    var obj = new Object(); // 1、创建空对象
+    obj.__proto__ = fn.prototype;
+    /* 2、 设置新对象的constructor属性为构造函数的名称
+    设置新对象的__proto__属性指向构造函数的prototype对象 */
+    var ret = fn.apply(obj,args);
+    // 3、使用新对象调用函数，函数中的this被指向新实例对象
+    return typeof ret === 'object' ? ret : obj;
+    }
+var a = CreateObj(Person); //4、将初始化完毕的新对象地址，保存到等号左边的变量中
+console.log(a);
+```
