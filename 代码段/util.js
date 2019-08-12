@@ -26,3 +26,28 @@ function GetQueryString(name) {
         }
     }
 }
+
+/** 
+ * 加载 Script 脚本及添加兼容回调
+*/
+function loadScript(url, calback) {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = 'async';
+    script.src = url;
+    var reg = /^(complete|loaded)$/;
+    var callbackFn = calback;
+    document.body.appendChild(script);
+    if (script.readyState) {
+        script.onreadystatechange = function () {
+            if (reg.test(script.readyState)) {
+                script.onreadystatechange = null;
+                callbackFn();
+            }
+        }
+    } else {
+        script.onload = function () {
+            callbackFn();
+        }
+    }
+}
