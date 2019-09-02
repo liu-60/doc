@@ -7,6 +7,15 @@
 
 //使用内置 git 可以省去 Mac 提交时输入密码
 
+/**
+ * for example
+ * @author LL60
+ * @description 添加要描述的内容
+ * @param {Num} index  参数说明 类型 key 
+ * @return {Num}  返回说明 类型 
+ * @version 0.9.0
+ */
+
 /** 
  * 获取带 # 的 url 中的 query，答：注意上面的search和hash的区别，如果URL中“？”之前有一个“#” 
  * 比如：“http://localhost:8080/index.html#/?yuiassotoken=35&id=5”那么使用window.location.search得到的就是空（“”）。
@@ -50,4 +59,17 @@ function loadScript(url, calback) {
             callbackFn();
         }
     }
+}
+
+/**
+ * 对 String 类型添加 url 的 query 的方法
+ * @param {Object} configObj 要添加的配置对象
+*/
+String.prototype.joinUrlQuery = function (configObj) {
+    let query = '';
+    if (!configObj) return this;
+    Object.keys(configObj).map((res, index) => {
+        query += `${index === 0 ? '?' : ''}${res}=${configObj[res]}${index !== (Object.keys(configObj).length - 1) ? '&' : ''}`
+    })
+    return this.concat(query);
 }
